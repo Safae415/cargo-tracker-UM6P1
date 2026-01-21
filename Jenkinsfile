@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3' // Le nom que tu as défini dans Jenkins Global Tool Configuration
-        jdk 'JDK 25'   // Assure-toi que le JDK est aussi configuré dans Jenkins
+        maven 'apache-maven-3.9.12'
+        jdk 'jdk-25'
     }
 
     triggers {
@@ -20,7 +20,6 @@ pipeline {
 
         stage('Build & Test with Coverage') {
             steps {
-                // Maven est utilisé depuis Jenkins, pas besoin de PATH
                 bat 'mvn clean verify'
             }
         }
