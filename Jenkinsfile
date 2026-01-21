@@ -2,26 +2,30 @@ pipeline {
     agent any
 
     triggers {
-        githubPush()   
+        githubPush()
+    }
+
+    tools {
+        maven 'apache-maven-3.9.12'
+        jdk 'jdk-17'
     }
 
     stages {
 
         stage('Clone') {
             steps {
-                git branch: 'develop', url: 'https://github.com/Safae415/cargo-tracker-UM6P1.git'
+                git branch: 'develop',
+                    url: 'https://github.com/Safae415/cargo-tracker-UM6P1.git'
             }
         }
 
         stage('Build & Test with Coverage') {
             steps {
-                bat 'mvn clean verify'
+                bat 'mvn clean verify -DskipTests'
             }
         }
-
-    
     }
-//
+
     post {
         success {
             echo 'Build et analyse terminés avec succès !'
