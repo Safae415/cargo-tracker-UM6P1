@@ -13,16 +13,20 @@ pipeline {
             }
         }
 
-        stage('Build & Test with Coverage') {
+        stage('Check Maven') {
             steps {
-                bat 'mvn clean verify'
-                //echo "testing "
+                bat 'mvn -v'
             }
         }
 
+        stage('Build & Test with Coverage') {
+            steps {
+                bat 'mvn clean verify'
+            }
+        }
       
     }
-//
+
     post {
         success {
             echo 'Build et analyse terminés avec succès !'
