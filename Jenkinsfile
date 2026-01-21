@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        githubPush()
+        githubPush()   
     }
 
     stages {
@@ -15,23 +15,21 @@ pipeline {
 
         stage('Check Maven') {
             steps {
-                // Vérifie que Jenkins peut trouver Maven
-                bat '"C:\\Program Files\\apache-maven-3.9.12\\bin\\mvn.cmd" -v'
+                bat 'mvn -v'
             }
         }
 
         stage('Build & Test with Coverage') {
             steps {
-                // Build et tests avec chemin complet vers Maven
-                bat '"C:\\Program Files\\apache-maven-3.9.12\\bin\\mvn.cmd" clean verify'
+                bat 'mvn clean verify'
             }
         }
-
+      
     }
 
     post {
         success {
-            echo 'Build et tests terminés avec succès !'
+            echo 'Build et analyse terminés avec succès !'
         }
         failure {
             echo 'Échec du build ou des tests.'
